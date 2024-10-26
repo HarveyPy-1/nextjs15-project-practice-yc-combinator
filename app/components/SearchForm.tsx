@@ -1,11 +1,10 @@
 import Form from "next/form";
 import SearchFormReset from "./SearchFormReset";
-const SearchForm = () => {
-	// Search query inputted in the form
-	const query = "Test";
+import { SearchIcon } from "lucide-react";
 
+const SearchForm = ({query}: {query?: string}) => {
 	return (
-		// New NextJS 15 feature. Submitting forms server side. You need an action in the form tag.
+		// New NextJS 15 feature. Submitting forms server side. You need an action in the form tag. It is useful for forms that navigate to a new page, such as a search form that leads to a results page.
 		<Form action="/" scroll={false} className="search-form">
 			<input
 				type="text"
@@ -20,7 +19,7 @@ const SearchForm = () => {
 				{query && <SearchFormReset />}
 
 				<button type="submit" className="search-btn text-white">
-					S
+					<SearchIcon className="size-5" />
 				</button>
 			</div>
 		</Form>
