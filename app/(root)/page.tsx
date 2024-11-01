@@ -1,5 +1,8 @@
-import StartupCard from "@/components/StartupCard";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import StartupCard, { StartupCardType } from "@/components/StartupCard";
 import SearchForm from "../../components/SearchForm";
+import { client } from "@/sanity/lib/client";
+import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 
 const Home = async ({
 	searchParams,
@@ -9,19 +12,22 @@ const Home = async ({
 	// Get the search query from the URL
 	const { query } = await searchParams;
 
-	const posts = [
-		{
-			_createdAt: new Date(),
-			views: 55,
-			author: { _id: 1, name: "John Doe" },
-			_id: 1,
-			description: "A platform for connecting entrepreneurs with investors",
-			image:
-				"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-			category: "Tech",
-			title: "Startup Connect",
-		},
-	];
+	// Get data from sanity
+	const posts = await client.fetch<StartupCardType[]>(STARTUPS_QUERY)
+
+	// const posts = [
+	// 	{
+	// 		_createdAt: new Date(),
+	// 		views: 55,
+	// 		author: { _id: 1, name: "John Doe" },
+	// 		_id: 1,
+	// 		description: "A platform for connecting entrepreneurs with investors",
+	// 		image:
+	// 			"https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+	// 		category: "Tech",
+	// 		title: "Startup Connect",
+	// 	},
+	// ];
 
 	return (
 		<>
@@ -41,7 +47,7 @@ const Home = async ({
 
 				<ul className="mt-7 card_grid">
 					{posts?.length > 0 ? (
-						posts.map((post: StartupCardType, index: number) => (
+						posts.map((post: StartupCardType) => (
 							<StartupCard key={post?._id} post={post} />
 						))
 					) : (
