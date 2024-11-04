@@ -6,6 +6,9 @@ import Link from "next/link";
 import Image from "next/image"
 import { notFound } from "next/navigation";
 import markdownit from 'markdown-it'
+import { Suspense } from "react";
+import { Skeleton } from "@/components/ui/skeleton";
+import View from "@/components/View";
 
 // Enable partial pre-rendering for this page
 export const experimental_ppr = true;
@@ -80,7 +83,10 @@ const StartupDetails = async ({ params }: { params: { id: string } }) => {
 
 						<hr className="divider" />
 
-						
+							{/* Code in the suspense tag will be rendered dynamically */}
+						<Suspense fallback={<Skeleton className="view_skeleton" />}>
+							<View id={id} />
+						</Suspense>
 					</section>
 				</>
 			);
