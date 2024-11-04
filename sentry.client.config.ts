@@ -12,10 +12,10 @@ Sentry.init({
     // Enable the Sentry Replay integration to allow users you see a video of what happened before the error occured
 		Sentry.replayIntegration(),
     // Add the feedback integration button
-		Sentry.feedbackIntegration({
-			// Additional SDK configuration goes in here, for example:
-			colorScheme: "system",
-		}),
+		// Sentry.feedbackIntegration({
+		// 	// Additional SDK configuration goes in here, for example:
+		// 	colorScheme: "system",
+		// }),
 	],
 
 	// Define how likely traces are sampled. Adjust this value in production, or use tracesSampler for greater control.
