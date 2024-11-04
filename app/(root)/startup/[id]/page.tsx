@@ -17,7 +17,11 @@ import StartupCard, { StartupCardType } from "@/components/StartupCard";
 // Enable partial pre-rendering for this page
 export const experimental_ppr = true;
 
-const StartupDetails = async ({ params }: { params: { id: string } }) => {
+const StartupDetails = async ({
+	params,
+}: {
+	params: Promise<{ id: string }>;
+}) => {
 	// Get the startup ID from the params
 	const id = (await params).id;
 
