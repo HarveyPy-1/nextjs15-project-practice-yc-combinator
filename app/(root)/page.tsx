@@ -28,7 +28,7 @@ const Home = async ({
 	// Get sanity ID of the author
 	const session = await auth();
 
-	console.log(session?.id)
+	// console.log(session?.id)
 
 	return (
 		<>
