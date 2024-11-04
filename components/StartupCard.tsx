@@ -26,7 +26,7 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
 				<p className="startup_card_date">{formatDate(_createdAt)}</p>
 				<div className="flex gap-1 5">
 					<EyeIcon className="size-6 text-primary" />
-					<span className="text-16-medium">{views}</span>
+					<span className="text-16-medium">{views || 0}</span>
 				</div>
 			</div>
 
@@ -41,7 +41,7 @@ const StartupCard = ({ post }: { post: StartupCardType }) => {
 				</div>
 				<Link href={`/user/${author?._id}`}>
 					<Image
-						src="https://placehold.co/48x48"
+						src={author?.image || "/images/default-avatar.png"}
 						alt="profile picture"
 						width={48}
 						height={48}
