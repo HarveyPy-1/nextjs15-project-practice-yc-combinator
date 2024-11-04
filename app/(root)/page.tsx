@@ -4,6 +4,7 @@ import SearchForm from "../../components/SearchForm";
 import { client } from "@/sanity/lib/client";
 import { STARTUPS_QUERY } from "@/sanity/lib/queries";
 import { sanityFetch, SanityLive } from "@/sanity/lib/live";
+import { auth } from "@/auth";
 
 const Home = async ({
 	searchParams,
@@ -24,6 +25,11 @@ const Home = async ({
 	// THIS FETCH IS THE LIVE WAY OF FETCHING DATA FROM SANITY. NEW DATA WILL BE FETCHED IN REAL TIME
 	const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
 
+	// Get sanity ID of the author
+	const session = await auth();
+
+	console.log(session?.id)
+
 	return (
 		<>
 			<section className="pink_container">
@@ -42,6 +48,7 @@ const Home = async ({
 
 				<ul className="mt-7 card_grid">
 					{posts?.length > 0 ? (
+						// @ts-expect-error-next-line
 						posts.map((post: StartupCardType) => (
 							<StartupCard key={post?._id} post={post} />
 						))
