@@ -6,5 +6,5 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: false, // Set to false if you want your data to show up instantly, and not cached data
+  useCdn: true, // Set to false if you want your data to show up instantly, and not cached data
 })
