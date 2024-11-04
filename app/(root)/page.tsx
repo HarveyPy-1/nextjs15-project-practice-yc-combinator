@@ -3,6 +3,7 @@ import StartupCard, { StartupCardType } from "@/components/StartupCard";
 import SearchForm from "../../components/SearchForm";
 import { client } from "@/sanity/lib/client";
 import { STARTUPS_QUERY } from "@/sanity/lib/queries";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 
 const Home = async ({
 	searchParams,
@@ -13,7 +14,12 @@ const Home = async ({
 	const { query } = await searchParams;
 
 	// Get data from sanity
-	const posts = await client.fetch<StartupCardType[]>(STARTUPS_QUERY)
+
+	// THIS FETCH IS THE DEFAULT WAY OF FETCHING DATA FROM SANITY. 
+	// const posts = await client.fetch<StartupCardType[]>(STARTUPS_QUERY)
+
+	// THIS FETCH IS THE LIVE WAY OF FETCHING DATA FROM SANITY. NEW DATA WILL BE FETCHED IN REAL TIME
+	const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY });
 
 	// const posts = [
 	// 	{
@@ -47,6 +53,7 @@ const Home = async ({
 
 				<ul className="mt-7 card_grid">
 					{posts?.length > 0 ? (
+						// @ts-expect-error-Type 'StartupCardType' is not assignable to type 'string'
 						posts.map((post: StartupCardType) => (
 							<StartupCard key={post?._id} post={post} />
 						))
@@ -55,6 +62,7 @@ const Home = async ({
 					)}
 				</ul>
 			</section>
+			<SanityLive />
 		</>
 	);
 };
